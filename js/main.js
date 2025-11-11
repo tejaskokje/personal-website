@@ -15,8 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Simple title rotation without animations (for testing)
     const titles = [
         'Engineering Leader',
-        'Artificial Intelligence',
+        'AI Agentic Infrastructure',
         'Full Stack Observability',
+        'Artificial Intelligence',
         'Cloud Infrastructure'
     ];
 
