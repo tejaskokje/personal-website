@@ -1072,19 +1072,19 @@ section {
   }
   
   .timeline::before {
-    left: 50%;
-    transform: translateX(-50%);
+    left: 20px;
+    transform: none;
   }
   
   .timeline-item {
-    padding-left: 0;
-    padding-top: 50px;
-    text-align: center;
+    padding-left: 60px;
+    padding-top: 0;
+    text-align: left;
   }
   
   .timeline-marker {
-    left: 50%;
-    transform: translateX(-50%);
+    left: 10px;
+    transform: none;
   }
   
   .timeline-body li {
