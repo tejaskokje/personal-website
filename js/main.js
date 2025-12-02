@@ -39,29 +39,42 @@ document.addEventListener('DOMContentLoaded', function() {
     // Theme Toggle Functionality
     const themeToggleBtn = document.getElementById('theme-toggle-btn');
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    // Check for saved theme preference or use the system preference
-    const currentTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
-    
-    // Set initial theme
-    if (currentTheme === 'dark') {
-        document.body.setAttribute('data-theme', 'dark');
-    }
-    
-    // Theme toggle event listener
-    themeToggleBtn.addEventListener('click', function() {
-        let theme = 'light';
-        
-        if (document.body.getAttribute('data-theme') !== 'dark') {
+
+    // Function to set theme
+    function setTheme(theme) {
+        if (theme === 'dark') {
             document.body.setAttribute('data-theme', 'dark');
-            theme = 'dark';
         } else {
             document.body.removeAttribute('data-theme');
         }
-        
-        // Save the preference
-        localStorage.setItem('theme', theme);
+    }
+
+    // Check for saved theme preference or use the system preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        setTheme(savedTheme);
+    } else {
+        // Default to system theme
+        setTheme(prefersDarkScheme.matches ? 'dark' : 'light');
+    }
+
+    // Listen for system theme changes
+    prefersDarkScheme.addEventListener('change', function(e) {
+        // Only follow system if user hasn't set a preference
+        if (!localStorage.getItem('theme')) {
+            setTheme(e.matches ? 'dark' : 'light');
+        }
     });
+
+    // Theme toggle event listener
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', function() {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            const newTheme = isDark ? 'light' : 'dark';
+            setTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    }
 
     // Mobile Navigation Toggle
     const navToggle = document.querySelector('.nav-toggle');
@@ -224,4 +237,5 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.scrollY > 50) {
         navbar.classList.add('scrolled');
     }
+
 });
